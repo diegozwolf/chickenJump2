@@ -11,12 +11,25 @@ $(document).ready(function(){
   }
 
   chicken = new GameImage('assets/chicken2.png',100,300, ctx, cvs)
+  flame = new GameImage('assets/flame2.png',cvs.width,300, ctx, cvs)
   obstacleSpeed = 5
 
   flame = {};
+  while (chicken.isAlive){
+    setTimeout(function(){resetObstable()}, 1100);
+  }
+  // $('#flame').css({right:250});
+  // $('#flame').animate ({
+  //   right: '+=1000',
+  // }, 0, 'linear', function(){
+  // });
 
 
 });
+function resetObstable(){
+  $("#flame").css({right: 250});
+  setTimeout(function(){$("#flame").css({right: 750});},100);
+}
 
 function draw(){
   drawHorizon()

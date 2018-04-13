@@ -1,6 +1,14 @@
 #chicken{
   top: 350px;
   position: absolute;
-  transition: top 1s;
-  // left: 200px;
+  transition: top 1s, left .5s;
+  left: 200px;
+  right: 50px;
+}
+
+#flame{
+  top: 350px;
+  position: absolute;
+  transition: top 1s, right 1s;
+  right: 300px;
 }

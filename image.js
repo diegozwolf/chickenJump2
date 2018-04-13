@@ -4,23 +4,40 @@ class GameImage{
     this.image.setAttribute("src", url)
     this.image.setAttribute("x", x)
     this.image.setAttribute("y" ,y)
-    this.image.id ="chicken";
+
+    if (url === 'assets/chicken2.png') {
+      this.image.id = 'chicken'
+
+    } else {
+      this.image.id = 'flame'
+    }
     document.body.appendChild(this.image)
 
     this.onOnground = true
     this.yVelocity = 0
     this.speed = 1
+    this.isAlive = true
 
     $( document ).keydown(function() {
-      $("#chicken").css('top', '150px');
-      setTimeout(function (){ $("#chicken").css('top', '350px'); }, 500)
+
+      $("#chicken").css('top', '150px')
+      $("#chicken").css('left','300px', 'easeInSine')
+
+      setTimeout(function (){
+        $("#chicken").css('top', '350px');
+        $("#chicken").css('left', '400px');
+      }, 500)
+
+
+
     })
   }
+
 
   updateImage (img, cvs, horizon, speed) {
     var nextBottom = horizon + this.yVelocity
     if (this.img.src === 'assets/chicken2.png') {
-      if ( this.img.y <= horizon  && nextBottom >= horizon) {
+      if (this.img.y <= horizon  && nextBottom >= horizon) {
         this.onGround = true
         img.y = horizon - this.yVelocity
         this.yVelocity = 0
@@ -28,9 +45,15 @@ class GameImage{
         this.yVelocity += speed
         this.onGround = false
       }
+
     } else {
       this.onScreen = (this.image.x > (cvs.width -(cvs.width-1)) && this.image.x + this.image.width < cvs.width)
       this.image.x -= speed
+    }
+    if (this.image.x > (cvs.width -(cvs.width-1)) && this.image.x + this.image.width < cvs.width){
+      this.isAlive = true
+    } else {
+      this.isAlive = false
     }
   }
 
