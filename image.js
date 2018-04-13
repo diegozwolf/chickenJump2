@@ -1,17 +1,23 @@
-$(document).ready(function(){
-  function Image (url, x, y, cvs) {
+class GameImage{
+  constructor (url,x,y) {
     this.image = document.createElement('IMG')
     this.image.setAttribute("src", url)
     this.image.setAttribute("x", x)
-    this.image.setAttribute("y",y)
+    this.image.setAttribute("y" ,y)
+    this.image.id ="chicken";
     document.body.appendChild(this.image)
+
     this.onOnground = true
     this.yVelocity = 0
     this.speed = 1
+
+    $( document ).keydown(function() {
+      $("#chicken").css('top', '150px');
+      setTimeout(function (){ $("#chicken").css('top', '350px'); }, 500)
+    })
   }
 
-
-  function updateImage(img, cvs, horizon, speed) {
+  updateImage (img, cvs, horizon, speed) {
     var nextBottom = horizon + this.yVelocity
     if (this.img.src === 'assets/chicken2.png') {
       if ( this.img.y <= horizon  && nextBottom >= horizon) {
@@ -28,21 +34,31 @@ $(document).ready(function(){
     }
   }
 
-  function drawElement(img, x,y, cvs){
-    ctx = cvs.getContext('2d')
+  drawElement(img, x, y, ctx, cvs){
+    // ctx = cvs.getContext('2d')
     ctx.drawImage(img,x,y)
     ctx.fillStyle = "#fff"
-    ctx.fillRect(0,0,cvs.width,cvs.height)
-    ctx.clearRect(0,0,cvs.width,cvs.height)
+    ctx.fillRect(0,0, cvs.width, cvs.height)
+    ctx.clearRect(0,0, cvs.width, cvs.height)
     requestAnimationFrame(drawElement)
   }
 
-  function hit (img, obs){
+  hit (img, obs){
     return (obs.x <= image.x && obs.x >= img.x - img.width)
   }
 
-  function jump(){
+  jump(){
     this.yVelocity = -(image.width / 2) * 0.75
-  }
 
-})
+  }
+  moveImageRight(img){
+    for(var i=0; i<=cvs.width; i++){
+      img.y += this.speed
+    }
+  }
+  moveImageLeft(img){
+    for(var i=0; i<=cvs.width; i++){
+      img.y -= this.speed
+    }
+  }
+}
